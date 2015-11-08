@@ -1,0 +1,115 @@
+//function AffichageLaTex(tab,X,Q,G,H,e,M1,M2,M3,M4,Mu1,Mu2,Mu3,Mu4,sigma,Fisher1,Fisher2); Il faut appeler la fonctionner avec le paramètre "tab" en plus
+
+tab = read('exo01.dat', -1, 1); // à commenter la ligne si le fonctionnement par appel de fonction est OK
+
+        // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+        //       Mise en page et présentation       //
+        // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+
+    // IINITIALISATION DU DOCUMENT PDF
+
+fd=mopen('AffichageLaTexDCNG.tex','wt');
+mfprintf(fd,"\\\documentclass[a4paper,12pt,reqno]{article}\n");
+//mfprintf(fd,"\\\documentclass[a4paper,12pt,reqno]{amsart}\n");
+
+mfprintf(fd,'\\\usepackage{amsmath}\n');
+mfprintf(fd,'\\\usepackage{amsfonts}\n');
+mfprintf(fd,'\\\usepackage{amssymb}\n');
+mfprintf(fd,'\\\usepackage{graphicx}\n');
+
+mfprintf(fd,'\\newcommand{\\newparagraphe}[1]{\\paragraph{#1}\\mbox{}\\\\}\n');
+
+mfprintf(fd,'\\\begin{document}\n');
+
+    // PAGE DE GARDE
+
+//mfprintf(fd,'\\title[Short Title (for the running head)] {Projet 3eme Annee}\n');
+//mfprintf(fd,'\\\author{Florent Cadio}\n');
+//mfprintf(fd,'\\\author{Le Pichon Yann}\n');
+//mfprintf(fd,'\\\author{Albouy Hugo}\n');
+//mfprintf(fd,'\\\author{Ouatik Said}\n');
+//mfprintf(fd,'\\\author{Yildirim Herve}\n');
+//mfprintf(fd,'\\\author{Merouane Mehdi}\n');
+//mfprintf(fd,'\\\author{Rafidison Michael}\n');
+//mfprintf(fd,'\\\date{Novembre 06, 2015}\n');
+//mfprintf(fd,'\\\dedicatory{A l intention de monsieur Ghorbanzadeh}\n');
+
+// Introduction etc..
+
+mfprintf(fd,'\\\');
+mfprintf(fd,'newparagraphe{}\n');
+mfprintf(fd,'\\\section{Introduction}\n');
+mfprintf(fd,'\\\fin intro\n');
+
+
+
+        // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+        // Affichage des données récupéré et traité //
+        // %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% //
+
+
+mfprintf(fd,'\\\');
+mfprintf(fd,'newparagraphe{}\n');
+mfprintf(fd,'\\\section{Traitement des DCNG}\n');
+
+
+    // AFFICHAGE DES DONNEES LU SUR LE FICHIER SOURCE
+
+mfprintf(fd,'\\\');
+mfprintf(fd,'newparagraphe{}\n');
+mfprintf(fd,'\\\subsection{Valeurs du tableau}\n');
+
+mfprintf(fd,'\\\begin{center}\n');
+mfprintf(fd,'\\\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}\n');
+mfprintf(fd,'\\\hline\n');
+
+//construction du tableau avec les valeur de tab (=valeur lu a partir du fichier)
+for i=1:1:length(tab)/10
+    mfprintf(fd,'%.2f & %.2f & %.2f & %.2f & %.2f & %.2f & %.2f & %.2f & %.2f & %.2f \\\\\n',tab(i),tab(i+length(tab)/10),tab(i+2*length(tab)/10),tab(i+3*length(tab)/10),tab(i+4*length(tab)/10),tab(i+5*length(tab)/10),tab(i+6*length(tab)/10),tab(i+7*length(tab)/10),tab(i+8*length(tab)/10),tab(i+9*length(tab)/10));
+    mfprintf(fd,'\\\hline\n');
+end;
+
+mfprintf(fd,'\\\end{tabular}\n');
+mfprintf(fd,'\\\end{center}\n');
+
+mfprintf(fd,'\\\');
+mfprintf(fd,'newparagraphe{}\n');
+
+
+    // AFFICHAGE DES RESULTATS DU TRAITEMENT DES DONNEES
+
+mfprintf(fd,'\\\');
+mfprintf(fd,'newparagraphe{}\n');
+mfprintf(fd,'\\\subsection{Résultats du traitement}\n');
+
+x =1.0;
+mfprintf(fd,'\\\begin{center}\n');
+mfprintf(fd,'\\\begin{tabular}{|l|r|}\n');
+mfprintf(fd,'\\\hline\n');
+mfprintf(fd,'Moyennes & Resultats \\\\\n');
+mfprintf(fd,'\\\hline\n');
+mfprintf(fd,'Moyennes Geometrique & %.2f \\\\\n',x);
+mfprintf(fd,'\\\hline\n');
+mfprintf(fd,'Moyennes Arithmetique & 2.2 \\\\\n');
+mfprintf(fd,'\\\hline\n');
+mfprintf(fd,'Moyennes Harmonique & 2.2 \\\\\n');
+mfprintf(fd,'\\\hline\n');
+mfprintf(fd,'\\\end{tabular}\n');
+mfprintf(fd,'\\\end{center}\n');
+
+
+    // AFFICHAGE DES HISTOGRAMME
+    
+mfprintf(fd,'\\\');
+mfprintf(fd,'newparagraphe{}\n');
+mfprintf(fd,'\\\subsection{Histogrammes}\n');
+
+    // FERMETURE ET MISE A JOUR DU FICHIER LATEX
+    
+mfprintf(fd,'\\\end{document}\n');
+mclose('AffichageLaTexDCNG.tex');
+
+
+//endfunction
+
+
